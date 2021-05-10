@@ -13,14 +13,16 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
 
+//        LoginController log = new LoginController();
+//        log.createAccountForm();
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        // my login thing
-        // primaryStage.initStyle(StageStyle.UNDECORATED);
-        // primaryStage.setScene(new Scene(root, 520, 400));
+
+         primaryStage.initStyle(StageStyle.UNDECORATED);
+         primaryStage.setScene(new Scene(root, 520, 400));
 
         // the calendar
-        // primaryStage.setTitle("Full Calendar Example");
-        // primaryStage.setScene(new Scene(new FullCalendarView(YearMonth.now()).getView()));
+//         primaryStage.setTitle("Full Calendar Example");
+//         primaryStage.setScene(new Scene(new FullCalendarView(YearMonth.now()).getView()));
         primaryStage.show();
 
     }
