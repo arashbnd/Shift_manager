@@ -21,6 +21,21 @@ public Employee() throws IOException {
 	this.age=Age;
 	}
 
+void nameSetter() throws IOException {
+	System.out.println("\nEnter employee name:");
+	BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+	String s = br.readLine();
+	this.name=s;
+}
+
+void ageSetter() throws IOException {
+	System.out.println("\nEnter employee age:");
+	BufferedReader brAge = new BufferedReader(new InputStreamReader(System.in));
+	String a = brAge.readLine();
+	int Age = Integer.parseInt(a);
+	this.age=Age;
+}
+
 void startTimeSetter() throws IOException {
 	System.out.println("\nEnter start of shift:");
 	BufferedReader time = new BufferedReader(new InputStreamReader(System.in));
@@ -58,7 +73,8 @@ BufferedReader option = new BufferedReader(new InputStreamReader(System.in));
 	String a = option.readLine();
 	int choice = Integer.parseInt(a);
 	if(choice == 1) {
-		new Employee();
+		this.nameSetter();
+		this.ageSetter();
 		this.startTimeSetter();
 		this.endTimeSetter();
 	}
