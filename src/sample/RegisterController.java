@@ -75,8 +75,7 @@ public class RegisterController {
         String username = usernameTextField.getText();
         String password = setPasswordField.getText();
         String position = positionTextField.getText();
-//        Boolean employee = employeeButton;
-//        Boolean employee = managerButton;
+
 
         String insertFields = "INSERT INTO users(firstname, lastname, username, position, password)" +
                 " VALUES ('";

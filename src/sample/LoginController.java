@@ -29,12 +29,12 @@ public class LoginController {
     private Label loginMessageLabel;
     @FXML
     private PasswordField enterPasswordField;
-    @FXML
-    private TextField usernameTextField;
+    @FXML // protected for position verifcation
+    protected TextField usernameTextField;
     @FXML
     private Button signupButton;
 
-
+    // login button
     public void loginButtonOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         if(!usernameTextField.getText().isBlank() && !enterPasswordField.getText().isBlank()){
             validateLogin();
@@ -45,17 +45,26 @@ public class LoginController {
     }
 
 
-
+    // button that takes you to register
     public void signupButtonOnAction(ActionEvent event) throws SQLException, ClassNotFoundException {
         createAccountForm();
     }
 
+    // button that turns shuts down the window
     public void cancelButtonOnAction(ActionEvent event){
         Stage stage = (Stage) cancelButton.getScene().getWindow();
         stage.close();
     }
 
+    // trying to get the signedinUser to showcalendar
+    public String getUser(){
+        return usernameTextField.getText();
+    }
+
+    // validating that the person is in the db
     public void validateLogin() throws SQLException, ClassNotFoundException {
+        
+        // connecting to the db for validating password
         DataBaseConnection connectNow = new DataBaseConnection();
         Connection connectDB = connectNow.getConnection();
         String verifyLogin = "SELECT count(1) FROM users WHERE username = '" + usernameTextField.getText() +
@@ -68,7 +77,6 @@ public class LoginController {
             while(queryResult.next()){
                 if (queryResult.getInt(1)==1) {
                     loginMessageLabel.setText("Congrats");
-                    //createAccountForm(); replace this with something that takes you to calendar view
                     viewCalendar();
                 } else {
                     loginMessageLabel.setText(("Invalid login"));
@@ -81,6 +89,18 @@ public class LoginController {
         }
     }
 
+    // loading correct window based on position
+    public void loadUserWindow() throws SQLException, ClassNotFoundException {
+        // connecting to the db for validating password
+        DataBaseConnection connectNow = new DataBaseConnection();
+        Connection connectDB = connectNow.getConnection();
+        String verifyPosition = "SELECT position FROM users WHERE username = '" + usernameTextField.getText() +"'";
+        Statement statement = connectDB.createStatement();
+        ResultSet queryResult = statement.executeQuery(verifyPosition);
+        System.out.println("Verify position"+verifyPosition);
+    }
+
+    // opens the register page
     public void createAccountForm(){
         try{
             System.out.println("You reached account form");
@@ -96,21 +116,54 @@ public class LoginController {
         }
     }
 
+    // shows the calendar
     public void viewCalendar(){
         try{
+
             System.out.println("You reached the calendar");
+            System.out.println("the user is: " + usernameTextField.getText());
             Parent root = FXMLLoader.load(getClass().getResource("fullCalendar.fxml"));
             Stage registerStage = new Stage();
             registerStage.initStyle(StageStyle.UNDECORATED);
             registerStage.setScene(new Scene(new FullCalendarView(YearMonth.now()).getView()));
             registerStage.show();
 
-        } catch(Exception e){
+            }
+         catch(Exception e){
             e.printStackTrace();
             e.getCause();
         }
     }
 
+    // for manager
+    public void showCreateSchedule() {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("CreateSchedule.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("create schedule");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
+
+    // for employee
+    public void showRequestSchedule(){
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("RequestScheduleController.fxml"));
+            Stage stage = new Stage();
+            Scene scene = new Scene(root);
+            stage.setTitle("create schedule");
+            stage.setScene(scene);
+            stage.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+            e.getCause();
+        }
+    }
 
 
 }
